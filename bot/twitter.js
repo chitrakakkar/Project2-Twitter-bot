@@ -1,5 +1,5 @@
 var Twitter = require('twitter');
-var fs = require('fs');
+var fs = require('fs'); // file system to read files
 
 function post(status, image, callback) {
 
@@ -11,7 +11,7 @@ function post(status, image, callback) {
     });
 
     try {
-        img = fs.readFileSync(image);
+        var img = fs.readFileSync(image);
     } catch (e) {
         console.log('Error reading image file');
         return callback(e);
@@ -49,6 +49,4 @@ function post(status, image, callback) {
         }
     });
 }
-
-
 module.exports = post;

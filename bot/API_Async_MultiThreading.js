@@ -23,9 +23,9 @@ async.parallel([
 
 function Image(callback)
 {
-    var Pixabay_key=process.env.PIXABAY_API_KEY;
+    var Image_key=process.env.PIXABAY_API_KEY;
     var url = "https://pixabay.com/api/"; // the base URL
-    var params = { 'key':Pixabay_key, 'q' :'beautiful', 'image_type':'photo'  };
+    var params = { 'key':Image_key, 'q' :'beautiful', 'image_type':'photo'  };
     request({url:url, qs: params}, function(err, res, data)
     {
         if(err)
