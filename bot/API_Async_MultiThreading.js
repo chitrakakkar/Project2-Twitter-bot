@@ -6,9 +6,10 @@ var quotes_data="";
 //http://stackoverflow.com/questions/33111961/typeerror-task-is-not-a-function-in-async-js-parrallel
 // without function (callback){Image(callback)}, was getting error:Task is not a function
 async.parallel([
-    function (callback){Image(callback)},
-    function (callback){quotes(callback)}
-], function(err, data){
+    Image,
+    quotes
+    ],
+    function(err, data){
     if (err) {
         console.log(err);
     } else {
@@ -38,22 +39,23 @@ function Image(callback)
             {
                 return callback(null, 'No Image found');
             }
-            callback("The url for the Image is " + Image['userImageURL']);
+            callback("The url for the Image is " + Image.hits[0].userImageURL);
         }
     });
 
 }
 
-
 function quotes(callback)
 {
-    var url = 'http://quotes.rest/qod.json';
+    //var url = 'http://quotes.rest/qod.json';
+    var url = 'http://www.quotzzy.co/api/quote';
     request(url, function(err, res, data){
-        var quotes = JSON.parse(data);
+        var quotes_object = JSON.parse(data);
+        //console.log(data);
         if (quotes.status == '404')
         { return callback(null, 'error');
         }
-        quotes_data = {'quotes':quotes.quotes, 'author':quotes.author, 'copyright':quotes.copyright};
+        quotes_data = {'quotes':quotes_object.text, 'author':quotes_object.author.name};
         callback( quotes_data)
     })
 }
