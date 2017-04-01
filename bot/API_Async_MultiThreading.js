@@ -42,12 +42,13 @@ async.parallel([
         console.log('\n** Parallel Results');
 
         console.log('Your image url is ' + data[0]);  // an *array* of results,
-        console.log('Your quotes for the day is :- ' + data[0].quotes); // an *array* of results,
+        console.log('Your quotes for the day is :- ' + data[1].quotes); // an *array* of results,
     }
         var options = {
             url: data[0],
             dest: '../public/images/',        // Save to /path/to/dest/photo.jpg
-            done: function(err, filename, Image) {
+            done: function(err, filename, Image)
+            {
                 if (err) {
                     throw err;
                 }
@@ -96,4 +97,7 @@ function quotes(callback)
     })
 }
 
-
+module.exports = {
+    Image:Image,
+    quotes:quotes
+};
