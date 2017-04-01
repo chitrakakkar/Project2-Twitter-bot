@@ -1,5 +1,30 @@
+/*The MIT License (MIT)
+ https://github.com/demsking/image-downloader/blob/master/LICENSE
+
+ Copyright (c) 2016 Sébastien Demanou
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE*/
+
+
 var async = require('async');
 var request = require('request');
+var image_downloader = require('image-downloader');
 
 
 var quotes_data="";
@@ -19,6 +44,17 @@ async.parallel([
         console.log('Your image url is ' + data[0]);  // an *array* of results,
         console.log('Your quotes for the day is' + data[1].quotes); // an *array* of results,
     }
+        var options = {
+            url: data[0],
+            dest: '../public/images/',        // Save to /path/to/dest/photo.jpg
+            done: function(err, filename, Image) {
+                if (err) {
+                    throw err;
+                }
+                console.log('File saved to', filename);
+            }
+        };
+        image_downloader(options);
 });
 
 
@@ -39,7 +75,7 @@ function Image(callback)
             {
                 return callback(null, 'No Image found');
             }
-            callback("The url for the Image is " + Image.hits[0].userImageURL);
+            callback(null, Image.hits[0].userImageURL);
         }
     });
 
@@ -56,6 +92,8 @@ function quotes(callback)
         { return callback(null, 'error');
         }
         quotes_data = {'quotes':quotes_object.text, 'author':quotes_object.author.name};
-        callback( quotes_data)
+        callback(null, quotes_data)
     })
 }
+
+

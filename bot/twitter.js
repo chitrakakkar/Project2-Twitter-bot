@@ -17,7 +17,8 @@ function post(status, image, callback) {
         return callback(e);
     }
 
-    client.post('media/upload', {media:img}, function(error, media, response){
+    client.post('media/upload', {media:img}, function(error, media, response)
+    {
 
         // media object returned, which is something that can be tweeted,
 
