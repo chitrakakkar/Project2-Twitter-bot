@@ -42,7 +42,7 @@ async.parallel([
         console.log('\n** Parallel Results');
 
         console.log('Your image url is ' + data[0]);  // an *array* of results,
-        console.log('Your quotes for the day is' + data[1].quotes); // an *array* of results,
+        console.log('Your quotes for the day is :- ' + data[0].quotes); // an *array* of results,
     }
         var options = {
             url: data[0],
