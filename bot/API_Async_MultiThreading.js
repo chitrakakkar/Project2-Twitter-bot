@@ -25,27 +25,31 @@
 var async = require('async');
 var request = require('request');
 var image_downloader = require('image-downloader');
-
+var fs = require('fs');
+const path = require('path');
 
 var quotes_data="";
+var Image_data="";
 //http://stackoverflow.com/questions/33111961/typeerror-task-is-not-a-function-in-async-js-parrallel
 // without function (callback){Image(callback)}, was getting error:Task is not a function
 async.parallel([
     Image,
     quotes
     ],
-    function(err, data){
+    function(err, data)
+    {
     if (err) {
         console.log(err);
     } else {
         // data is an array of results from each function
         console.log('\n** Parallel Results');
 
-        console.log('Your image url is ' + data[0]);  // an *array* of results,
+        console.log('Your image url is ' + data[0].Image);  // an *array* of results,
         console.log('Your quotes for the day is :- ' + data[1].quotes); // an *array* of results,
     }
-        var options = {
-            url: data[0],
+        var options =
+        {
+            url: data[0].Image,
             dest: '../public/images/',        // Save to /path/to/dest/photo.jpg
             done: function(err, filename, Image)
             {
@@ -58,25 +62,32 @@ async.parallel([
         image_downloader(options);
 });
 
-
 function Image(callback)
 {
+    var Image_string = ['beautiful','Flowers','Mountains'];
+    var Image_string_Index= Image_string[Math.floor(Math.random()*4)];
     var Image_key=process.env.PIXABAY_API_KEY;
     var url = "https://pixabay.com/api/"; // the base URL
-    var params = { 'key':Image_key, 'q' :'beautiful', 'image_type':'photo'  };
+    var params = { 'key':Image_key, 'q' :Image_string_Index, 'image_type':'photo'  };
     request({url:url, qs: params}, function(err, res, data)
     {
+
         if(err)
         {
             callback("Error !!! ")
         }
-        else {
+        else
+            {
             var Image = JSON.parse(data);
+            var Image_index= Image.hits.length;
+          //https://www.w3schools.com/jsref/jsref_random.asp
+            var i= Math.floor(Math.random()*Image_index);
             if (err)
             {
                 return callback(null, 'No Image found');
             }
-            callback(null, Image.hits[0].userImageURL);
+            Image_data={'Image':Image.hits[i].userImageURL, 'User':Image.hits[i].user};
+            callback(null, Image_data);
         }
     });
 
@@ -100,4 +111,7 @@ function quotes(callback)
 module.exports = {
     Image:Image,
     quotes:quotes
+
 };
+// var f_name=path.basename("../public/images/");
+// console.log("Check this",f_name);
