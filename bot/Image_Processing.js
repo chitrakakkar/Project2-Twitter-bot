@@ -15,7 +15,9 @@ Quotes.quotes(function (err, data)
     }
     else
     {
-        Jimp.read(files, function (err, images) {
+        // TODO: change the image file name to Saved_Image.jpg
+        Jimp.read('../public/images/Saved_Image.jpg', function (err, images)
+        {
             if (err) throw err;
             images.resize(256, 256)            // resize
                 .quality(60)                 // set JPEG quality
