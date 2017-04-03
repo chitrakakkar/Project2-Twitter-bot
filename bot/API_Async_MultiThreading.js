@@ -38,29 +38,44 @@ async.parallel([
     ],
     function(err, data)
     {
-    if (err) {
-        console.log(err);
-    } else {
-        // data is an array of results from each function
-        console.log('\n** Parallel Results');
+        if (err) {
+            console.log(err);
+        } else {
+            // data is an array of results from each function
+            console.log('\n** Parallel Results');
 
-        console.log('Your image url is ' + data[0].Image);  // an *array* of results,
-        console.log('Your quotes for the day is :- ' + data[1].quotes); // an *array* of results,
-    }
+            console.log('Your image url is ' + data[0].Image);  // an *array* of results,
+            console.log('Your quotes for the day is :- ' + data[1].quotes); // an *array* of results,
+        }
         var options =
         {
             url: data[0].Image,
             dest: '../public/images/',        // Save to /path/to/dest/photo.jpg
-            done: function(err, filename, Image)
+            done: function (err, filename, Image)
             {
+                const directory='../public/images/';
+                fs.readdir(directory, function (err,files)
+                {
+                    console.log("Here",files[0]);
+                    console.log("I am filename", filename);
+                    if(err)
+                    {
+                        console.log(err)
+                    }
+               fs.rename(files[0].toString(), 'Downloaded_Image.jpg',function (err)
+                {
+                    console.log("I am files",files[0]);
+                    if ( err ) console.log('ERROR: ' + err);
+                });
                 if (err) {
                     throw err;
                 }
                 console.log('File saved to', filename);
+                });
             }
         };
         image_downloader(options);
-});
+    });
 
 function Image(callback)
 {
