@@ -2,8 +2,6 @@ var Jimp = require("jimp");
 var Quotes= require('../bot/API_Async_MultiThreading');
 var fs = require('fs');
 
-var Image_text =" ";
-
 
 
 Quotes.quotes(function (err, data)
@@ -15,15 +13,26 @@ Quotes.quotes(function (err, data)
     }
     else
     {
-        // TODO: change the image file name to Saved_Image.jpg
-        Jimp.read('../public/images/Saved_Image.jpg', function (err, images)
+        Jimp.read('../public/images/Downloaded_Image.jpg', function( err,images)
         {
             if (err) throw err;
-            images.resize(256, 256)            // resize
-                .quality(60)                 // set JPEG quality
-                .greyscale()                // set greyscale
-                .write("Resize_Quotes.jpg");
-        });
+            Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font)
+            {
+
+                images.scaleToFit(600, 600);
+                images.print(font, 20,250, data.quotes, 600); // wrapped text
+                images.print(font,277,450, "-" + data.author)// resize
+                    .quality(60)
+                    .brightness(-0.3)
+                    .write("Processed_Image.jpg");
+
+            // set JPEG quality
+            }).catch(function (err)
+            {
+            console.error(err)
+
+            });
+      });
     }
     
 });

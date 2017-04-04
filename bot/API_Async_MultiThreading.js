@@ -67,7 +67,7 @@ async.parallel([
 function Image(callback)
 {
     var Image_string = ['beautiful','Flowers','Mountains'];
-    var Image_string_Index= Image_string[Math.floor(Math.random()*4)];
+    var Image_string_Index= Image_string[Math.floor(Math.random()*3)];
     var Image_key=process.env.PIXABAY_API_KEY;
     var url = "https://pixabay.com/api/"; // the base URL
     var params = { 'key':Image_key, 'q' :Image_string_Index, 'image_type':'photo'  };
@@ -92,7 +92,6 @@ function Image(callback)
             callback(null, Image_data);
         }
     });
-
 }
 
 function quotes(callback)
@@ -115,5 +114,3 @@ module.exports = {
     quotes:quotes
 
 };
-// var f_name=path.basename("../public/images/");
-// console.log("Check this",f_name);
