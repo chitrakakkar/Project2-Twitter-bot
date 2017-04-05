@@ -88,7 +88,7 @@ function Image(callback)
             {
                 return callback(null, 'No Image found');
             }
-            Image_data={'Image':Image.hits[i].userImageURL, 'User':Image.hits[i].user};
+            Image_data={'Image':Image.hits[i].userImageURL, 'User':Image.hits[i].user, 'Web':Image.hits[i].webformatURL};
             callback(null, Image_data);
         }
     });
@@ -104,7 +104,7 @@ function quotes(callback)
         if (quotes.status == '404')
         { return callback(null, 'error');
         }
-        quotes_data = {'quotes':quotes_object.text, 'author':quotes_object.author.name};
+        quotes_data = {'quotes':quotes_object.text, 'author':quotes_object.author.name,'url':url};
         callback(null, quotes_data)
     })
 }
@@ -112,5 +112,4 @@ function quotes(callback)
 module.exports = {
     Image:Image,
     quotes:quotes
-
 };

@@ -26,14 +26,13 @@ Quotes.quotes(function (err, data)
                     .brightness(-0.3)
                     .write("Processed_Image.jpg");
 
-            // set JPEG quality
+                // set JPEG quality
             }).catch(function (err)
             {
-            console.error(err)
+                console.error(err)
 
             });
-      });
+        });
     }
-    
-});
 
+});
