@@ -2,8 +2,6 @@ var Jimp = require("jimp");
 var Quotes= require('../bot/API_Async_MultiThreading');
 var fs = require('fs');
 var twitter= require('../bot/twitter');
-var querystring = require("querystring");
-var stringify = require("querystring").stringify;
 
 Quotes.Image(function (err, Imagedata)
 {
@@ -23,7 +21,7 @@ Quotes.Image(function (err, Imagedata)
             }
             else
             {
-                Jimp.read(querystring.stringify(Imagedata.Image), function( err,images)
+                Jimp.read(Imagedata.Image, function( err,images)
                 {
                     console.log("I am the Image" , Imagedata.Image);
                     if (err) throw err;
@@ -36,9 +34,9 @@ Quotes.Image(function (err, Imagedata)
                         //images.print(font,10, 560, "Page url ->"+ data.url)
 
                             .quality(60)
-                            .brightness(-0.3);
-                        //.write("Processed_Image.jpg");
-                        twitter(status, images, function (err, tweet)
+                            .brightness(-0.3)
+                        .write("Processed_Image.jpg");
+                        twitter(status, 'Processed_Image.jpg', function (err, tweet)
                         {
                             if(err)
                             {

@@ -2,7 +2,7 @@ var Twitter = require('twitter');
 var fs = require('fs'); // file system to read files
 
 function post(status, image, callback) {
-
+    var img;
     var client = new Twitter({
         consumer_key: process.env.TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -11,7 +11,8 @@ function post(status, image, callback) {
     });
 
     try {
-        var img = fs.readFileSync(image);
+      img = fs.readFileSync(image);
+
     } catch (e) {
         console.log('Error reading image file');
         return callback(e);
@@ -19,10 +20,12 @@ function post(status, image, callback) {
 
     client.post('media/upload', {media:img}, function(error, media, response)
     {
+        console.log(img.media_id_string);
 
         // media object returned, which is something that can be tweeted,
 
-        if (error) {
+        if (error)
+        {
             console.log('error creating media ' + error);
             return callback(error);
         }
