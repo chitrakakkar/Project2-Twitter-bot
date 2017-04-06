@@ -5,6 +5,7 @@ var twitter= require('../bot/twitter');
 
 Quotes.Image(function (err, Imagedata)
 {
+    var Processed_Image_Loc ="Processed_Image.jpg";
     if(err)
     {
         console.log('Error in getting Image' + err)
@@ -12,7 +13,7 @@ Quotes.Image(function (err, Imagedata)
     else
     {
 
-        var status = "Full Image at" + Imagedata.Web + 'by the user @' + Imagedata.user;
+        var status = "Full Image at :- " + Imagedata.Web + 'by the user @' + Imagedata.User;
         Quotes.quotes(function (err, quotesData)
         {
             if (err)
@@ -35,27 +36,26 @@ Quotes.Image(function (err, Imagedata)
 
                             .quality(60)
                             .brightness(-0.3)
-                        .write("Processed_Image.jpg");
-                        twitter(status, 'Processed_Image.jpg', function (err, tweet)
+                        .write(Processed_Image_Loc, function (err, Image)
                         {
-                            if(err)
+
+                            twitter(status, Processed_Image_Loc, function (err, tweet)
                             {
-                                console.log('error posting tweet');
-                                console.log(err)
+                                if(err)
+                                {
+                                    console.log('error posting tweet');
+                                    console.log(err)
 
-                            }
-                            else {
-                                console.log('Tweet posted, check twitter');
+                                }
+                                else {
+                                    console.log('Tweet posted, check twitter');
 
-                            }
+                                }
 
-                        } )
+                            } )
 
-                    }).catch(function (err)
-                    {
-                        console.error(err)
-
-                    });
+                        })
+                        });
                 });
             }
 

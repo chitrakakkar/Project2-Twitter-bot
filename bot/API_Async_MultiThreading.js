@@ -88,7 +88,7 @@ function Image(callback)
             {
                 return callback(null, 'No Image found');
             }
-            Image_data={'Image':Image.hits[i].userImageURL, 'User':Image.hits[i].user, 'Web':Image.hits[i].webformatURL};
+            Image_data={'Image':Image.hits[i].userImageURL, 'User':Image.hits[i].user, 'Web':Image.hits[i].pageURL};
             callback(null, Image_data);
         }
     });
