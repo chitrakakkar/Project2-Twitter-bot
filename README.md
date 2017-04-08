@@ -6,7 +6,7 @@ The assignment was to create a Twitter bot that posts something meaningful to Tw
 ## The Application
 
 There is a small homepage site so that users who visit the bot's Heroku page get a little information about the app. There is one example processed-image for the user with some information about the Image and the user for the Image.
-The HEroku-app can be found at@https://vast-ocean-77173.herokuapp.com/ and Twitter @ https://twitter.com/@chitraMCTC
+The Heroku-app can be found at@https://vast-ocean-77173.herokuapp.com/ and Twitter @ https://twitter.com/@chitraMCTC
 
 
 ## Future Development: -
