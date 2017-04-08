@@ -88,7 +88,7 @@ function Image(callback)
             {
                 return callback(null, 'No Image found');
             }
-            Image_data={'Image':Image.hits[i].userImageURL, 'User':Image.hits[i].user, 'Web':Image.hits[i].pageURL};
+            Image_data={'Image':Image.hits[i].webformatURL, 'User':Image.hits[i].user, 'Web':Image.hits[i].webformatURL};
             callback(null, Image_data);
         }
     });
@@ -96,9 +96,9 @@ function Image(callback)
 
 function quotes(callback)
 {
-    //var url = 'http://quotes.rest/qod.json';
     var url = 'http://www.quotzzy.co/api/quote';
-    request(url, function(err, res, data){
+    request(url, function(err, res, data)
+    {
         var quotes_object = JSON.parse(data);
         //console.log(data);
         if (quotes.status == '404')

@@ -13,7 +13,7 @@ Quotes.Image(function (err, Imagedata)
     else
     {
 
-        var status = "Full Image at :- " + Imagedata.Web + 'by the user @' + Imagedata.User;
+        var status = "Full Image at :- " + Imagedata.Web + 'Uploaded by the user @' + Imagedata.User;
         Quotes.quotes(function (err, quotesData)
         {
             if (err)
@@ -24,14 +24,13 @@ Quotes.Image(function (err, Imagedata)
             {
                 Jimp.read(Imagedata.Image, function( err,images)
                 {
-                    console.log("I am the Image" , Imagedata.Image);
                     if (err) throw err;
                     Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function (font)
                     {
 
-                        images.scaleToFit(600, 600); //resize
-                        images.print(font, 20,250, quotesData.quotes, 600); // wrapped text
-                        images.print(font,277,450, "-" + quotesData.author)
+                        images.scaleToFit(700, 700); //resize
+                        images.print(font, 20,150, quotesData.quotes, 600); // wrapped text
+                        images.print(font,277,350, "-" + quotesData.author)
                         //images.print(font,10, 560, "Page url ->"+ data.url)
 
                             .quality(60)
