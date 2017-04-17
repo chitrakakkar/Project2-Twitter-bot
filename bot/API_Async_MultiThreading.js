@@ -109,7 +109,8 @@ function quotes(callback)
     })
 }
 
-module.exports = {
+module.exports =
+{
     Image:Image,
     quotes:quotes
 };

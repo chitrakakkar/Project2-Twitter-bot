@@ -13,7 +13,7 @@ Quotes.Image(function (err, Imagedata)
     else
     {
 
-        var status = "Full Image at :- " + Imagedata.Web + 'Uploaded by the user @' + Imagedata.User;
+        var status = "Full Image at :- " + Imagedata.Web + 'Uploaded by the user' + Imagedata.User;
         Quotes.quotes(function (err, quotesData)
         {
             if (err)
