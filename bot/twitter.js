@@ -1,7 +1,12 @@
+// Taken from https://github.com/minneapolis-edu/spiraltron/blob/master/bot/twitter.js
+
 var Twitter = require('twitter');
 var fs = require('fs'); // file system to read files
 
-function post(status, image, callback) {
+// posts the status and Image
+function post(status, image, callback)
+{
+    // twitter API keys
     var client = new Twitter({
         consumer_key: process.env.TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -9,14 +14,17 @@ function post(status, image, callback) {
         access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
     });
 
-    try {
+    try
+    {
+        // returns the content of the file;
       var img = fs.readFileSync(image);
 
-    } catch (e) {
+    } catch (e)
+    {
         console.log('Error reading image file');
         return callback(e);
     }
-
+    // posts the Image in the media folder of the twitter account;
     client.post('media/upload', {media:img}, function(error, media, response)
     {
         // media object returned, which is something that can be tweeted,
