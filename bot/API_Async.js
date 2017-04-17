@@ -24,7 +24,7 @@
 
 var async = require('async');
 var request = require('request');
-var image_downloader = require('image-downloader');
+//var image_downloader = require('image-downloader');
 var fs = require('fs');
 const path = require('path');
 
@@ -63,11 +63,11 @@ var Image_data="";
 //         };
 //         image_downloader(options);
 //     });
-
+// This makes an API calls to Pixabay to fetch images based on some hard-coded search params;
 function Image(callback)
 {
-    var Image_string = ['beautiful','Flowers','Mountains'];
-    var Image_string_Index= Image_string[Math.floor(Math.random()*3)];
+    var Image_string = ['beautiful','Flowers','Mountains']; // search params
+    var Image_string_Index= Image_string[Math.floor(Math.random()*3)]; // picks randomly from Image_string;
     var Image_key=process.env.PIXABAY_API_KEY;
     var url = "https://pixabay.com/api/"; // the base URL
     var params = { 'key':Image_key, 'q' :Image_string_Index, 'image_type':'photo'  };
@@ -88,12 +88,13 @@ function Image(callback)
             {
                 return callback(null, 'No Image found');
             }
+            //sends Image data to the bot.js through the Image object in module.export;
             Image_data={'Image':Image.hits[i].webformatURL, 'User':Image.hits[i].user, 'Web':Image.hits[i].webformatURL};
             callback(null, Image_data);
         }
     });
 }
-
+// This API does not need any key and no calls restrictions; grabs quotes evertime it's called with it's author;
 function quotes(callback)
 {
     var url = 'http://www.quotzzy.co/api/quote';
@@ -104,6 +105,7 @@ function quotes(callback)
         if (quotes.status == '404')
         { return callback(null, 'error');
         }
+        //returns quotes and author's name
         quotes_data = {'quotes':quotes_object.text, 'author':quotes_object.author.name,'url':url};
         callback(null, quotes_data)
     })
