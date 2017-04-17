@@ -15,7 +15,7 @@ Quotes.Image(function (err, Imagedata)
     else
     {
         // tweeter status to give credit to the user;
-        var status = "Full Image at :- " + Imagedata.Web + 'Uploaded by the user' + Imagedata.User;
+        var status = "Full Image at :- " + Imagedata.Web + 'Uploaded by the user :- ' + Imagedata.User;
         Quotes.quotes(function (err, quotesData)
         {
             if (err)
