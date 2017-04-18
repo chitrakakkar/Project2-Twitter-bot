@@ -13,4 +13,4 @@ The Heroku-app can be found at@https://vast-ocean-77173.herokuapp.com/ and Twitt
 To post the Image on the webpage as Twitter everyday.
 
 ## KnownBugs:
-Not known except since this bot runs once a day !! may need more error handling in case of multiple requets.
+Not known since this bot runs once a day !! may need more errors handling in case of multiple requets.
